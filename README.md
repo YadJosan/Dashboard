@@ -6,17 +6,6 @@
 A startup **Angular 11 / ASP.NET Core 5** (cross-platform ) **project template** with an end-to-end login, user and role management implementation.
 As well as other common functionalities for **Quick Application Development**.
 
-[FOLLOW ME](https://twitter.com/kommand) on twitter for important updates
-
-###### NOTE: Please post support related topics in the [help & support forum](https://www.ebenmonney.com/forum/?view=forum&id=14). For bug reports open an [issue on github](https://github.com/emonney/QuickApp/issues). 
-
-###### To hire developers for your next project please go to [DevLink](https://www.ebenmonney.com/devlink) or send a mail to [devlink@ebenmonney.com](mailto:devlink@ebenmonney.com) for more info. 
-
-For the older asp.net core 1.x version: [Download](https://github.com/emonney/QuickApp-VSIX/releases/tag/v1.5")
-
-[LIVE DEMO](http://quickapp.ebenmonney.com) | [MORE TEMPLATES](https://www.ebenmonney.com/templates)
-[![QuickApp Demo](https://github.com/emonney/QuickApp/blob/9b122b7f3c38121699d3ec41b700474e192abe37/QuickApp.gif?raw=true)](https://www.youtube.com/watch?v=Wuh7NIZ96jA)
-
 ___
 ## INTRODUCING QUICKAPP PREMIUM TEMPLATES
 *   All free features
@@ -26,10 +15,7 @@ ___
 *   Priority Email Support
 *   Etc
 
-[Get QuickApp PRO](https://www.ebenmonney.com/product/quickapp-pro) | [Live Demo](http://quickapp-pro.ebenmonney.com/)
 
-[Get QuickApp STANDARD](https://www.ebenmonney.com/product/quickapp-standard) | [Live Demo](http://quickapp-standard.ebenmonney.com/)
-___
 
 
 
@@ -67,10 +53,6 @@ ___
 
 ## Installation
 
-*   [OPTION 1] Clone the [Git Repository](https://github.com/emonney/QuickApp.git) and edit with your favorite editor. e.g. Visual Studio, Visual Studio Code
-*   [OPTION 2] Install Project template from the [Visual Studio Gallery](https://marketplace.visualstudio.com/items?itemName=adentum.QuickApp-ASPNETCoreAngularXProjectTemplate) and follow the usual File -> New Project -> Web -> QuickApp - to create a new Project from this template.
-    Lunch with `F5` or `Ctrl+F5` (The usual way)
-
 
 ## Installation Notes
 
@@ -84,8 +66,6 @@ ___
 *	When running the client(angular) project on a different address/domain from the backend, configure the baseUrl of the client to match that of the server.
 	You do this from environment.ts in the ClientApp/Angular project.
 	Example: baseUrl: "http://yourbackendserver.com" OR baseUrl: "http://localhost:5050"
-*	For help and support post in the [support forum](https://www.ebenmonney.com/forum/?view=forum&id=14)
-*	For bug reports open an [issue on github](https://github.com/emonney/QuickApp/issues)
 
 
 ## Login
@@ -110,21 +90,3 @@ LOGIN WITH USERNAME OR EMAIL ADDRESS
 *   [Getting started with Angular CLI](https://cli.angular.io)
 *   [Introduction to Bootstrap 4](https://getbootstrap.com/docs/4.1/getting-started/introduction)
 
-
-## Contribution
-
-QuickApp is actively maintained by [Ebenezer Monney](https://github.com/emonney) on [GitHub](https://github.com/emonney/QuickApp). You can support it by
-*   Submitting your changes/improvements/features using pull requests
-*   Suggesting ideas or areas of improvements
-*   Encouraging the developers by rating it/starring it
-*   Linking to it and recommending it to others
-*   [Making a donation](https://www.paypal.me/emonney)
-
-
-## License
-
-Released under the [MIT License](https://github.com/emonney/QuickApp/blob/master/LICENSE).
-
-[YOUR FEEDBACK](mailto:contact@ebenmonney.com) | [FOLLOW ME](https://twitter.com/kommand)
-
-### _**If you found this template useful, please take a minute to [rate it](https://marketplace.visualstudio.com/items?itemName=adentum.QuickApp-ASPNETCoreAngularXProjectTemplate#review-details). Appreciated!**_
