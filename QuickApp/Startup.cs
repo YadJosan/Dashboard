@@ -25,6 +25,8 @@ using QuickApp.Helpers;
 using System;
 using System.Collections.Generic;
 using AppPermissions = DAL.Core.ApplicationPermissions;
+using Microsoft.AspNetCore.HttpOverrides;
+using System.Net;
 
 namespace QuickApp
 {
@@ -54,6 +56,11 @@ namespace QuickApp
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.KnownProxies.Add(IPAddress.Parse("35.173.188.184"));
+            });
 
             // Configure Identity options and password complexity here
             services.Configure<IdentityOptions>(options =>
@@ -188,6 +195,11 @@ namespace QuickApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
