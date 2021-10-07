@@ -15,6 +15,10 @@ body, html {
   font-size: 0.875rem;
 }
 
+.bg-primary{
+  background-color:#0e9df6 !important;
+}
+
 input.form-control.left-status,
 textarea.form-control.left-status,
 .ng-select.form-control.left-status {
@@ -157,7 +161,7 @@ textarea.form-control.left-status,
 
 .nav > li > a:hover,
 .nav > li > a:focus {
-  background-color: #eee;
+  background-color: #15719d;
 }
 
 .nav > .nav-item.active > a,
@@ -168,7 +172,7 @@ textarea.form-control.left-status,
 
 .navbar .nav-item > a:hover,
 .nav li.toolbaritem a:hover {
-  color: #E03930;
+  color: #ffffff;
 }
 
 .disabledContainer {

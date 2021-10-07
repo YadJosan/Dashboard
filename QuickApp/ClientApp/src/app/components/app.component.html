@@ -1,6 +1,16 @@
 <div class="app-component app-container">
-  <ngx-toasta></ngx-toasta>
-
+  <ngx-toasta></ngx-toasta>  
+  <div class="branding">
+    <div class="d-flex align-items-center ml-3">
+      <a href="/"><img class="logosize" src="assets/images/logo.png"></a>      
+    </div>
+    <div class="d-flex align-items-center d-none d-lg-block mr-5">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="tel:(419) 691-0600" class="headerItem">CALL US NOW - (419) 691-0600</a>
+        <a href="https://talbot.atcemr.com/" class="headerItem">PATIENT PORTAL</a>
+      </div>
+    </div>
+  </div>
   <nav id="header" class="app-component navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
       <!-- <a ngPreserveWhitespaces class="app-component navbar-brand" routerLink="/">
@@ -12,21 +22,18 @@
       </button>
 
       <div *ngIf="isUserLoggedIn" class="app-component collapse navbar-collapse menuItemsContainer">
-        <ul class="app-component nav nav-pills flex-column flex-lg-row mr-auto">
-          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link" routerLink=""><i class="fa fa-home"></i></a>
+        <ul class="app-component nav nav-pills flex-column flex-lg-row mr-auto">      
+          <li class="nav-item" routerLinkActive="active" *ngIf="canViewCustomers">
+            <a class="nav-link" routerLink="/home">Dashboard</a>
           </li>
-          <!-- <li class="nav-item" routerLinkActive="active" *ngIf="canViewCustomers">
-            <a class="nav-link" routerLink="/customers">{{'mainMenu.Customers' | translate}}</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active" *ngIf="canViewProducts">
-            <a class="nav-link" routerLink="/products">{{'mainMenu.Products' | translate}}</a>
+          <!-- <li class="nav-item" routerLinkActive="active" *ngIf="canViewProducts">
+            <a class="nav-link" routerLink="/home">Menu 1</a>
           </li>
           <li class="nav-item" routerLinkActive="active" *ngIf="canViewOrders">
-            <a class="nav-link" routerLink="/orders">{{'mainMenu.Orders' | translate}}</a>
+            <a class="nav-link" routerLink="/home">Menu 2</a>
           </li>
           <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/about">{{'mainMenu.About' | translate}}</a>
+            <a class="nav-link" routerLink="/home">Menu 3</a>
           </li> -->
         </ul>
         <ul class="app-component nav nav-pills flex-column flex-lg-row mr-md-2">

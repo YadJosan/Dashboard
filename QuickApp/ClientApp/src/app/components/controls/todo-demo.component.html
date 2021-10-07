@@ -1,22 +1,31 @@
 <div>
   <div class="row control-box">
-    <div class="col-lg-8">
-      <div class="form-group search-box">
-        <app-search-box (searchChange)="onSearchChanged($event)" placeholder="{{'todoDemo.management.Search' | translate}}"></app-search-box>
-      </div>
+    <div class="col-lg-10">
+      
     </div>
-    <div class="col-lg-4">
-      <ul class="nav flex-column flex-lg-row">
-        <!-- <li [class.active]="hideCompletedTasks" class="nav-item toolbaritem">
-          <a class="nav-link" href="javascript:;" (click)="hideCompletedTasks = !hideCompletedTasks"><i class="fa fa-eye-slash"></i> {{'todoDemo.management.HideCompleted' | translate}}</a>
-        </li> -->
+    <div class="col-lg-2">
+      <ul class="nav flex-column flex-lg-row">    
         <li class="nav-item toolbaritem" [hidden]="!canViewEdit">
           <a class="nav-link" href="javascript:;" (click)="addTask()"><i class="fa fa-plus"></i> {{'todoDemo.management.AddTask' | translate}}</a>
         </li>
       </ul>
     </div>
   </div>
-  <ngx-datatable class="material colored-header sm table-hover"
+
+  <div class="row">
+    <div class="col-12 col-md-4 mb-4 tiles-effect" *ngFor="let item of rowsCache">
+      <div *ngIf="canViewEdit" class="edit-icon" (click)="editTask(item)"><i class="fa fa-pencil-square-o"></i></div>
+      <div *ngIf="canViewEdit" class="delete-icon" (click)="delete(item)"><i class="fa fa-times"></i></div>
+      <a target="_blank" href={{item.url}}>
+        <div class="tiles d-flex align-items-center">          
+          <div class="w-25 text-center tiles-icon"><i class="fa fa-laptop"></i></div>
+          <div class="w-75 text-center tiles-text">{{item.name}}</div>          
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- <ngx-datatable class="material colored-header sm table-hover"
                  [loadingIndicator]="loadingIndicator"
                  [rows]="rows"
                  [rowHeight]="35"
@@ -70,12 +79,8 @@
   <ng-template #actionsTemplate let-row="row">
     <a [hidden]="!canViewEdit" class="btn btn-link btn-sm" href="javascript:;" tooltip="{{'todoDemo.management.Delete' | translate}}" container="body" (click)="delete(row)"><i class="fa fa-times"></i></a>
     
-    <a class="btn btn-link btn-sm" target="_blank" href="{{row.url}}"  container="body"><i class="fa fa-eye"></i></a>
-    <!-- <a class="btn btn-link btn-sm" href="javascript:;" tooltip="{{'todoDemo.management.Important' | translate}}" container="body" (click)="row.important = !row.important" (mouseover)="row.isMouseOver=true" (mouseout)="row.isMouseOver=false">
-      <i *ngIf="row.important || row.isMouseOver" class="fa fa-bookmark"></i>
-      <i *ngIf="!row.important && !row.isMouseOver" class="fa fa-bookmark-o"></i>
-    </a> -->
-  </ng-template>
+    <a class="btn btn-link btn-sm" target="_blank" href="{{row.url}}"  container="body"><i class="fa fa-eye"></i></a>   
+  </ng-template> -->
 
 
 
@@ -123,16 +128,6 @@
                 <input type="text" id="taskDescription" name="taskDescription" placeholder="Enter task description" class="form-control" [(ngModel)]="taskEdit.description" />
               </div>
             </div>
-
-            <!-- <div class="row">
-              <label class="col-form-label col-md-3"> </label>
-              <div class="col-md-9">
-                <div class="form-check">
-                  <input class="form-check-input" id="isImportant" name="isImportant" type="checkbox" [(ngModel)]="taskEdit.important">
-                  <label for="isImportant" class="form-check-label">{{'todoDemo.editor.Important' | translate}}</label>
-                </div>
-              </div>
-            </div> -->
 
             <div class="row">
               <div class="col-md-12">

@@ -124,9 +124,7 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
 
 
   fetch() {
-    this.getFromDisk().subscribe(res=>{
-    console.log('res');
-    console.log(res);
+    this.getFromDisk().subscribe(res=>{    
       this.refreshDataIndexes(res);
       this.rows = res;
       this.rowsCache = [...res];
@@ -191,15 +189,19 @@ export class TodoDemoComponent implements OnInit, OnDestroy {
     });
   }
 
-  save() {
-    // this.rowsCache.splice(0, 0, this.taskEdit);
-    // this.rows.splice(0, 0, this.taskEdit);
-    // this.refreshDataIndexes(this.rowsCache);
-    // this.rows = [...this.rows];
+  editTask(item) {
+    this.formResetToggle = false;
 
-    // this.saveToDisk();
-    // this.editorModal.hide();
-    this.siteService.newSite(this.taskEdit).subscribe(res=>{
+    setTimeout(() => {
+      this.formResetToggle = true;
+
+      this.taskEdit = item;
+      this.editorModal.show();
+    });
+  }
+
+  save() { 
+    this.siteService.updateUser(this.taskEdit).subscribe(res=>{
         this.fetch();
         this.editorModal.hide();
       });

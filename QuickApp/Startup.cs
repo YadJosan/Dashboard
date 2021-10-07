@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using AppPermissions = DAL.Core.ApplicationPermissions;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
+using QuickApp.ViewModels.Dtos;
 
 namespace QuickApp
 {
@@ -57,9 +58,11 @@ namespace QuickApp
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.Configure<PandaDocSetting>(Configuration.GetSection("PandaDocSetting"));
+
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.KnownProxies.Add(IPAddress.Parse("35.173.188.184"));
+                options.KnownProxies.Add(IPAddress.Parse("137.184.98.252"));
             });
 
             // Configure Identity options and password complexity here
@@ -182,6 +185,11 @@ namespace QuickApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             Utilities.ConfigureLogger(loggerFactory);
             EmailTemplates.Initialize(env);
 
@@ -194,12 +202,7 @@ namespace QuickApp
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
-
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+            }           
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

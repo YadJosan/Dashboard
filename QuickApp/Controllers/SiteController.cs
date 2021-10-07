@@ -4,11 +4,15 @@ using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using QuickApp.Helpers;
 using QuickApp.ViewModels;
+using QuickApp.ViewModels.Dtos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace QuickApp.Controllers
@@ -21,14 +25,20 @@ namespace QuickApp.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IOptions<PandaDocSetting> _pandadocConfig;
 
 
-        public SiteController(IMapper mapper, IUnitOfWork unitOfWork, ILogger<CustomerController> logger, IEmailSender emailSender)
+        public SiteController(IMapper mapper, 
+                              IUnitOfWork unitOfWork, 
+                              ILogger<CustomerController> logger, 
+                              IEmailSender emailSender,
+                              IOptions<PandaDocSetting> pandadocConfig)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _logger = logger;
             _emailSender = emailSender;
+            _pandadocConfig = pandadocConfig;
         }
 
 
@@ -69,6 +79,33 @@ namespace QuickApp.Controllers
             _unitOfWork.Sites.DeleteSite(id);
             _unitOfWork.SaveChanges();
             return Ok();
+        }
+
+        [HttpGet("doclist")]
+        public async Task<IActionResult> GetDocumentList()
+        {
+
+            var strResponse = await HttpRequestHelper.GetRequestAsync($"{_pandadocConfig.Value.BaseApiUrl}{"/public/v1/documents"}",
+                                                            new AuthenticationHeaderValue("API-Key", _pandadocConfig.Value.ApiKey));
+
+            return Ok(_mapper.Map<HttpResponseDto>(strResponse));
+        }
+
+        [HttpPost("createdocument")]
+        public async Task<IActionResult> CreateDocument([FromForm] CreateDocumentDto createDocument)
+        {            
+            //Request Body
+            List<KeyValuePair<string, string>> requestData = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("file", createDocument.file),
+                new KeyValuePair<string, string>("data", createDocument.data)
+            };
+
+            var strResponse = await HttpRequestHelper.PostRequestAsync($"{_pandadocConfig.Value.BaseApiUrl}{"/public/v1/documents"}",
+                                                            new AuthenticationHeaderValue("API-Key", _pandadocConfig.Value.ApiKey),
+                                                            createDocument);
+
+            return Ok(_mapper.Map<HttpResponseDto>(strResponse));
         }
     }
 }

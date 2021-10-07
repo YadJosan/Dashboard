@@ -4,9 +4,47 @@ $footerHeight: 40px;
     height: 100%;
 }
 
+.fixed-top {
+    position: inherit !important;
+}
+
+.branding {
+    display: flex;
+    justify-content: space-between;
+    height: 81px;
+    align-items: center;
+  }
+
+  .logosize{
+    width: 300px;
+    height: 65px;
+  }
+
+  .headerItem {
+    font: normal bold 17px / 22px "Poppins";
+    text-decoration: none;
+    padding: 10px 20px 10px 20px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #282592;
+}
+
+  .headerItem:hover {
+    color: #282592;
+}
+
+.headerItem:first-child {
+    padding-left: 0;
+}
+
+.headerItem:last-child {
+    padding-right: 0;
+}
+  
+
 main.app-component {
     height: calc(100% - #{$footerHeight});
-    padding-top: 60px;
+    padding-top: 20px;
 }
 
 .footer-height.app-component {

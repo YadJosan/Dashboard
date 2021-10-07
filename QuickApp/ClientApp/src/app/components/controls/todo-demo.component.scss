@@ -11,6 +11,53 @@ input.form-control {
     margin: 0;
 }
 
+.tiles{
+    background-color: #1e8a8d;
+    height: 110px;
+}
+
+
+.tiles-icon{
+    font-size: 50px;
+    color: #ffff;
+    background-color: #0c554e;
+    line-height: 2.2 !important;
+}
+
+.tiles-text{
+    font-size: 25px;
+    color: #ffff;
+}
+
+.edit-icon{
+    position: absolute;
+    top: 1px;
+    right: 40px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.delete-icon{
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+a:hover {    
+    text-decoration: none !important;
+}
+
+.tiles-effect{
+  color: #ffffff;
+  transition: all .2s ease-in-out 0s;
+}
+
+.tiles-effect:hover{    
+    transform: scale(1.08);
+  }
+
 .nav-item.toolbaritem a {
     padding-top: 3px;
     padding-bottom: 3px;
