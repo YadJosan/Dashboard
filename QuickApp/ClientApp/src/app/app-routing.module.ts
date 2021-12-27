@@ -17,6 +17,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { Utilities } from './services/utilities';
+import { JobApplicationsComponent } from './components/job-applications/job-applications.component';
+import { JobDetailComponent } from './components/job-applications/job-detail/job-detail.component';
 
 
 @Injectable()
@@ -50,6 +52,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], data: { title: 'Settings' } },
   { path: 'about', component: AboutComponent, data: { title: 'About Us' } },
   { path: 'home', redirectTo: '/', pathMatch: 'full' },
+  { path: 'job-applications', component: JobApplicationsComponent, canActivate: [AuthGuard]},
+  { path: 'job-detail/:id', component: JobDetailComponent, canActivate: [AuthGuard]},
   { path: '**', component: NotFoundComponent, data: { title: 'Page Not Found' } }
 ];
 

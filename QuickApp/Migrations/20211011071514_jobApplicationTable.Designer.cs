@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace QuickApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211011071514_jobApplicationTable")]
+    partial class jobApplicationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,34 +202,6 @@ namespace QuickApp.Migrations
                     b.ToTable("Customer");
                 });
 
-            modelBuilder.Entity("DAL.Models.JobApplicationNotes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("JobApplicationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobApplicationId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("JobApplicationNotes");
-                });
-
             modelBuilder.Entity("DAL.Models.JobApplications", b =>
                 {
                     b.Property<int>("Id")
@@ -269,6 +243,9 @@ namespace QuickApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
@@ -632,23 +609,6 @@ namespace QuickApp.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("DAL.Models.JobApplicationNotes", b =>
-                {
-                    b.HasOne("DAL.Models.JobApplications", "JobApplication")
-                        .WithMany()
-                        .HasForeignKey("JobApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("JobApplication");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DAL.Models.Order", b =>

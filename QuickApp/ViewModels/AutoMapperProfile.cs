@@ -63,6 +63,13 @@ namespace QuickApp.ViewModels
 
             CreateMap<Order, OrderViewModel>()
                 .ReverseMap();
+
+            CreateMap<JobApplications, JobViewModel>()
+               .ReverseMap();
+
+            CreateMap<JobApplicationNotes, JobNotesViewModel>()
+              .ForMember(d => d.UserName, map => map.MapFrom(s => s.User.UserName))
+              .ReverseMap();
         }
     }
 }

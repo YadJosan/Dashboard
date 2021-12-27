@@ -18,7 +18,7 @@ namespace DAL
         IProductRepository Products { get; }
         IOrdersRepository Orders { get; }
         ISiteRepository Sites { get; }
-
+        IJobApplicationRepository JobApplication { get; }
 
         int SaveChanges();
     }

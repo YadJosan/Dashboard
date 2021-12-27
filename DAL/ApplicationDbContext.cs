@@ -20,6 +20,8 @@ namespace DAL
     {
         public string CurrentUserId { get; set; }
         public DbSet<Site> Sites { get; set; }
+        public DbSet<JobApplications> JobApplications { get; set; }
+        public DbSet<JobApplicationNotes> JobApplicationNotes { get; set; }
         //public DbSet<Customer> Customers { get; set; }
         //public DbSet<ProductCategory> ProductCategories { get; set; }
         //public DbSet<Product> Products { get; set; }

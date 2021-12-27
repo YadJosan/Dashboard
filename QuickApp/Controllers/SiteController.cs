@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DAL;
 using DAL.Models;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,13 +12,13 @@ using QuickApp.ViewModels;
 using QuickApp.ViewModels.Dtos;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace QuickApp.Controllers
 {
+    [Authorize(AuthenticationSchemes = IdentityServerAuthenticationDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class SiteController : ControllerBase
@@ -28,11 +30,9 @@ namespace QuickApp.Controllers
         private readonly IOptions<PandaDocSetting> _pandadocConfig;
 
 
-        public SiteController(IMapper mapper, 
-                              IUnitOfWork unitOfWork, 
+        public SiteController(IMapper mapper, IUnitOfWork unitOfWork, 
                               ILogger<CustomerController> logger, 
-                              IEmailSender emailSender,
-                              IOptions<PandaDocSetting> pandadocConfig)
+                              IEmailSender emailSender, IOptions<PandaDocSetting> pandadocConfig)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -93,7 +93,7 @@ namespace QuickApp.Controllers
 
         [HttpPost("createdocument")]
         public async Task<IActionResult> CreateDocument([FromForm] CreateDocumentDto createDocument)
-        {            
+        {
             //Request Body
             List<KeyValuePair<string, string>> requestData = new List<KeyValuePair<string, string>>
             {

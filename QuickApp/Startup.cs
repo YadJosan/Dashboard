@@ -62,7 +62,7 @@ namespace QuickApp
 
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.KnownProxies.Add(IPAddress.Parse("137.184.98.252"));
+                options.KnownProxies.Add(IPAddress.Parse("54.161.13.199"));
             });
 
             // Configure Identity options and password complexity here
@@ -112,6 +112,13 @@ namespace QuickApp
                     options.ApiName = IdentityServerConfig.ApiName;
                 });
 
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //   .AddJwtBearer(options =>
+            //   {
+            //       options.Authority = "{yourAuthorizationServerAddress}";
+            //       options.Audience = "{yourAudience}";
+            //   });
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(Authorization.Policies.ViewAllUsersPolicy, policy => policy.RequireClaim(ClaimConstants.Permission, AppPermissions.ViewUsers));
@@ -126,7 +133,14 @@ namespace QuickApp
 
 
             // Add cors
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("https://talbothealthservices.com");
+                    });
+            });
 
             services.AddControllersWithViews();
 
@@ -185,11 +199,6 @@ namespace QuickApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-
             Utilities.ConfigureLogger(loggerFactory);
             EmailTemplates.Initialize(env);
 
@@ -202,9 +211,20 @@ namespace QuickApp
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }           
+            }
 
-            app.UseHttpsRedirection();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+            app.Use((context, next) =>
+            {
+                context.Request.Scheme = "https";
+                return next();
+            });
+
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {

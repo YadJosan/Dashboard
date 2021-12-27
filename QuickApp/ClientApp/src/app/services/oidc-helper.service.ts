@@ -40,8 +40,9 @@ export class OidcHelperService {
             .append('scope', this.scope);
 
         this.oauthService.issuer = this.baseUrl;
-        this.oauthService.responseType = 'code';
-        this.oauthService.strictDiscoveryDocumentValidation = false;
+        //this.oauthService.responseType = 'code';
+        //this.oauthService.strictDiscoveryDocumentValidation = false;
+        //this.oauthService.requireHttps = false;
          
         return from(this.oauthService.loadDiscoveryDocument())
             .pipe(mergeMap(() => {
@@ -57,8 +58,9 @@ export class OidcHelperService {
             .append('grant_type', 'refresh_token');
 
         this.oauthService.issuer = this.baseUrl;
-        this.oauthService.responseType = 'code';
-        this.oauthService.strictDiscoveryDocumentValidation = false;
+        //this.oauthService.responseType = 'code';
+        //this.oauthService.strictDiscoveryDocumentValidation = false;
+        //this.oauthService.requireHttps = false;
         return from(this.oauthService.loadDiscoveryDocument())
             .pipe(mergeMap(() => {
                 return this.http.post<LoginResponse>(this.oauthService.tokenEndpoint, params, { headers: header });

@@ -1,0 +1,240 @@
+<div>
+  <div class="d-flex justify-content-end">
+    <button class="mr-1" mat-raised-button color="primary" (click)="gotoView()">{{ isKanbanView ? 'Table View' : 'Kanban View' }}</button>
+  </div>
+<div class="jobApplicationWrapper p-4 mt-4">
+
+
+  <div class="row control-box" *ngIf="!isKanbanView">
+    <div class="col-12">
+            <mat-tab-group>
+                <mat-tab label="Applied"> 
+                  <table mat-table [dataSource]="appliedJobApplications" class="mat-elevation-z8">                 
+                  
+                    <!-- First Column -->
+                    <ng-container matColumnDef="First">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> First Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                    </ng-container>
+                  
+                    <!-- Last Column -->
+                    <ng-container matColumnDef="Last">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Last Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                    </ng-container>
+                  
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="Email">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Email </th>
+                      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+                  
+                    <!-- Cell Phone Column -->
+                    <ng-container matColumnDef="Cell Phone">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Cell Phone </th>
+                      <td mat-cell *matCellDef="let element"> {{element.cellPhone}} </td>
+                    </ng-container>
+
+                     <!-- Job Title Column -->
+                     <ng-container matColumnDef="Job Title">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Title </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobTitle}} </td>
+                    </ng-container>
+
+                     <!-- Job Location Column -->
+                     <ng-container matColumnDef="Job Location">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Location </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobLocation}} </td>
+                    </ng-container>
+
+                    <!-- Get Details -->
+                  <ng-container matColumnDef="Details">
+                    <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Details </th>
+                    <td mat-cell *matCellDef="let element"> <button mat-stroked-button (click)="gotoJobDetail(element.id)">Details</button> </td>
+                  </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>   
+                </mat-tab>
+                <mat-tab label="Scheduled Interview"> 
+                  <table mat-table [dataSource]="scheduledJobApplications" class="mat-elevation-z8">                 
+                  
+                    <!-- First Column -->
+                    <ng-container matColumnDef="First">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> First Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                    </ng-container>
+                  
+                    <!-- Last Column -->
+                    <ng-container matColumnDef="Last">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Last Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                    </ng-container>
+                  
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="Email">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Email </th>
+                      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+                  
+                    <!-- Cell Phone Column -->
+                    <ng-container matColumnDef="Cell Phone">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Cell Phone </th>
+                      <td mat-cell *matCellDef="let element"> {{element.cellPhone}} </td>
+                    </ng-container>
+
+                     <!-- Job Title Column -->
+                     <ng-container matColumnDef="Job Title">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Title </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobTitle}} </td>
+                    </ng-container>
+
+                     <!-- Job Location Column -->
+                     <ng-container matColumnDef="Job Location">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Location </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobLocation}} </td>
+                    </ng-container>
+
+                    <!-- Get Details -->
+                  <ng-container matColumnDef="Details">
+                    <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Details </th>
+                    <td mat-cell *matCellDef="let element"> <button mat-stroked-button (click)="gotoJobDetail(element.id)">Details</button> </td>
+                  </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </mat-tab>
+                <mat-tab label="Hired"> 
+                  <table mat-table [dataSource]="hiredJobApplications" class="mat-elevation-z8">                 
+                  
+                    <!-- First Column -->
+                    <ng-container matColumnDef="First">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> First Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                    </ng-container>
+                  
+                    <!-- Last Column -->
+                    <ng-container matColumnDef="Last">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Last Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                    </ng-container>
+                  
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="Email">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Email </th>
+                      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+                  
+                    <!-- Cell Phone Column -->
+                    <ng-container matColumnDef="Cell Phone">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Cell Phone </th>
+                      <td mat-cell *matCellDef="let element"> {{element.cellPhone}} </td>
+                    </ng-container>
+
+                     <!-- Job Title Column -->
+                     <ng-container matColumnDef="Job Title">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Title </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobTitle}} </td>
+                    </ng-container>
+
+                     <!-- Job Location Column -->
+                     <ng-container matColumnDef="Job Location">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Location </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobLocation}} </td>
+                    </ng-container>
+
+                    <!-- Get Details -->
+                  <ng-container matColumnDef="Details">
+                    <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Details </th>
+                    <td mat-cell *matCellDef="let element"> <button mat-stroked-button (click)="gotoJobDetail(element.id)">Details</button> </td>
+                  </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </mat-tab>
+                <mat-tab label="Rejected"> 
+                  <table mat-table [dataSource]="rejectedJobApplications" class="mat-elevation-z8">                 
+                  
+                    <!-- First Column -->
+                    <ng-container matColumnDef="First">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> First Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                    </ng-container>
+                  
+                    <!-- Last Column -->
+                    <ng-container matColumnDef="Last">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Last Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                    </ng-container>
+                  
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="Email">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Email </th>
+                      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+                  
+                    <!-- Cell Phone Column -->
+                    <ng-container matColumnDef="Cell Phone">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Cell Phone </th>
+                      <td mat-cell *matCellDef="let element"> {{element.cellPhone}} </td>
+                    </ng-container>
+
+                     <!-- Job Title Column -->
+                     <ng-container matColumnDef="Job Title">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Title </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobTitle}} </td>
+                    </ng-container>
+
+                     <!-- Job Location Column -->
+                     <ng-container matColumnDef="Job Location">
+                      <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Job Location </th>
+                      <td mat-cell *matCellDef="let element"> {{element.jobLocation}} </td>
+                    </ng-container>
+
+                    <!-- Get Details -->
+                  <ng-container matColumnDef="Details">
+                    <th mat-header-cell *matHeaderCellDef class="font-weight-bold"> Details </th>
+                    <td mat-cell *matCellDef="let element"> <button mat-stroked-button (click)="gotoJobDetail(element.id)">Details</button> </td>
+                  </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </mat-tab>
+              </mat-tab-group>
+        </div>
+    </div>
+
+    
+    <div class="root" *ngIf="isKanbanView">
+      <div class="board">
+        <div class="board-wrapper">
+          <div class="board-columns">
+    
+            <div cdkDropList cdkDropListOrientation="horizontal" class="board-columns"
+              (cdkDropListDropped)="dropGrid($event)">
+              <div cdkDragLockAxis="x" class="board-column" *ngFor="let column of boardOrder()" cdkDrag>
+                <div class="column-title" cdkDragHandle>
+                  {{ column.name }}
+                </div>
+                <div class="tasks-container" id="{{column.id}}" [cdkDropListConnectedTo]="['1','2','3','4']" cdkDropList
+                  [cdkDropListData]="column.tasks" (cdkDropListDropped)="drop($event)">
+                  <div class="task flex-column  " *ngFor="let item of column.tasks" cdkDrag>
+                    <a role="button" class="text-capitalize font-weight-bold text-decoration-none text-dark" (click)="gotoJobDetail(item.id)">{{ item.firstName }} {{ item.lastName }}</a>
+                    <span class="text-muted">{{ item.address }}</span>
+                    <span class="text-muted">{{ item.city }}</span>
+                    <span class="text-muted">{{ item.date | date }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

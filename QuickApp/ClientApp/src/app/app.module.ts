@@ -64,6 +64,15 @@ import { RolesManagementComponent } from './components/controls/roles-management
 import { RoleEditorComponent } from './components/controls/role-editor.component';
 import { SiteEndpoint } from './services/site-endpoint.service';
 import { SiteService } from './services/site.service';
+import { JobApplicationsComponent } from './components/job-applications/job-applications.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { JobDetailComponent } from './components/job-applications/job-detail/job-detail.component';
+import {MatTableModule} from '@angular/material/table';
+import {  MatPaginatorModule } from '@angular/material/paginator';
+import {  MatButtonModule } from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input'
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -73,6 +82,13 @@ import { SiteService } from './services/site.service';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatInputModule,
+    DragDropModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -110,7 +126,9 @@ import { SiteService } from './services/site.service';
     AutofocusDirective,
     BootstrapTabDirective,
     BootstrapToggleDirective,
-    GroupByPipe
+    GroupByPipe,
+    JobApplicationsComponent,
+    JobDetailComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },

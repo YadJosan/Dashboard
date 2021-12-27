@@ -21,6 +21,7 @@ namespace DAL
         IProductRepository _products;
         IOrdersRepository _orders;
         ISiteRepository _sites;
+        IJobApplicationRepository _jobApplication;
 
 
 
@@ -77,6 +78,17 @@ namespace DAL
                     _sites = new SiteRepository(_context);
 
                 return _sites;
+            }
+        }
+
+        public IJobApplicationRepository JobApplication
+        {
+            get
+            {
+                if (_jobApplication == null)
+                    _jobApplication = new JobApplicationRepository(_context);
+
+                return _jobApplication;
             }
         }
 

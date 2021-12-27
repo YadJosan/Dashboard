@@ -1,0 +1,180 @@
+<div class="row">
+    <div class="col-12 col-md-4 col-lg-3">
+        <div class="details-container">
+            <h3 class="details-title">Details</h3>
+            <p><span class="titlefont">Job Title :</span> {{jobDetail.jobTitle}}</p>
+            <p><span class="titlefont">Job Location :</span> {{jobDetail.jobLocation}}</p>
+            <p><span class="titlefont">Date :</span> {{jobDetail.date | date}}</p>
+            <p><span class="titlefont">First Name :</span> {{jobDetail.firstName}}</p>
+            <p><span class="titlefont">Last Name :</span> {{jobDetail.lastName}}</p>
+            <p><span class="titlefont">Email :</span> {{jobDetail.email}}</p>
+            <p><span class="titlefont">Cell Phone :</span> {{jobDetail.cellPhone}}</p>
+            <p><span class="titlefont">Home Phone :</span> {{jobDetail.homePhone}}</p>
+            <p><span class="titlefont">Address :</span> {{jobDetail.address}}</p>
+            <p><span class="titlefont">City :</span> {{jobDetail.city}}</p>
+            <p><span class="titlefont">State :</span> {{jobDetail.state}}</p>
+            <p><span class="titlefont">PostalCode :</span> {{jobDetail.postalCode}}</p>
+            <p><span class="titlefont">Comments :</span> {{jobDetail.comments}}</p>
+        </div>
+    </div>
+    <div class="col-12 col-md-8 col-lg-9 mt-4 mt-md-0">
+        <div class="content-container">
+            <mat-tab-group animationDuration="0ms">
+                <mat-tab label="Note">
+                    <ul class="nav justify-content-end my-2">    
+                        <li class="nav-item toolbaritem">
+                            <a class="nav-link" href="javascript:;" (click)="addNoteHandler()"><i class="fa fa-plus"></i> Add Note</a>
+                        </li>
+                    </ul>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col" width="100">User Name</th>
+                            <th scope="col" width="185">Date</th>
+                            <th scope="col">Note</th>
+                            <th scope="col" style="text-align: center;">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let note of jobApplicationNotes">
+                            <td>{{ note.userName }}</td>
+                            <td>{{ formatAMPM(note.date) }}</td>
+                            <td>{{ note.note }}</td>
+                            <td align="center">
+                                <span *ngIf="currentUserId === note.userId" class="mr-3 text-primary" role="button" (click)="editNote(note)"><i class="fa fa-pencil-square-o"></i></span>
+                                <span *ngIf="currentUserId === note.userId" class="text-danger" role="button" (click)="confirmDeleteNote(note.id)"><i class="fa fa-times"></i></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </mat-tab>
+                <mat-tab label="Status & Attachments">
+                    <div class="p-3">
+                        <div class="mb-3">
+                            <div class="form-group row">
+                                <span class="col-sm-2 titlefont">Attachments :</span> 
+                                <div class="col-sm-10">
+                                    <!-- <a target="_blank" href="downloadAtachmentName()">{{getAtachmentName()}}</a> -->
+                                    <button mat-raised-button (click)="downloadAtachmentName()">{{getAtachmentName()}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-group row">
+                                <span class="col-sm-2 col-form-label titlefont">status :</span>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="" id="" [(ngModel)]="jobDetail.status">
+                                        <option *ngFor="let status of jobStatus" [value]="status.value">{{status.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group row">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <button class="mr-2" mat-raised-button color="primary" (click)="saveJob()">Save</button>
+                                    <button mat-raised-button (click)="gotoList()">Cancle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+<div class="modal fade" bsModal #addNoteModal="bs-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title float-left"><i class="fa fa-tasks"></i> New Note</h4>
+                <button type="button" class="close" title="Close" (click)="addNoteModal.hide()">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="addNoteForm" #f="ngForm" novalidate
+                    (ngSubmit)="f.form.valid ? saveNote() :
+                            (!note.valid && showErrorAlert('Note is required', 'Please enter a note or cancel'));">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3" for="note">Note:</label>
+                        <div class="col-md-9">
+                            <textarea rows="4" appAutofocus type="text" id="note" name="note" placeholder="Enter Note" class="form-control" [ngClass]="{'is-valid': f.submitted && note.valid, 'is-invalid' : f.submitted && !note.valid}"
+                                    [(ngModel)]="addNote.note" #note="ngModel" required></textarea>
+                            <span *ngIf="f.submitted && !note.valid" class="invalid-feedback">
+                                Note is required
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                        <hr class="edit-last-separator-hr" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group actionBtn-form-group">
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-primary">{{ addNote.id ? "Update Note" : "Add Note" }}</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Note Confirmation Modal -->
+
+<div class="modal fade" bsModal #deleteNoteModal="bs-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title float-left text-danger">Delete Note</h4>
+                <button type="button" class="close" title="Close" (click)="deleteNoteModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-center mt-4 mb-5">Are you sure?</h5>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary mr-4" (click)="deleteNote()" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-primary" (click)="deleteNoteModal.hide()">Cancel</button>
+                </div>
+                <!-- <form name="addNoteForm" #f="ngForm" novalidate
+                    (ngSubmit)="f.form.valid ? saveNote() :
+                            (!note.valid && showErrorAlert('Note is required', 'Please enter a note or cancel'));">
+
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3" for="note">Note:</label>
+                        <div class="col-md-9">
+                            <textarea rows="4" appAutofocus type="text" id="note" name="note" placeholder="Enter Note" class="form-control" [ngClass]="{'is-valid': f.submitted && note.valid, 'is-invalid' : f.submitted && !note.valid}"
+                                    [(ngModel)]="addNote.note" #note="ngModel" required></textarea>
+                            <span *ngIf="f.submitted && !note.valid" class="invalid-feedback">
+                                Note is required
+                            </span>
+                        </div>
+                    </div>             
+
+                    <div class="row">
+                        <div class="col-md-12">
+                        <hr class="edit-last-separator-hr" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group actionBtn-form-group">
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-primary">Add Note</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form> -->
+            </div>
+        </div>
+    </div>
+</div>

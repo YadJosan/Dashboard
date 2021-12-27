@@ -1,0 +1,30 @@
+.details-container {
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: azure;
+}
+.content-container {
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: azure;
+}
+
+.details-title {
+    padding-left: 10px;
+    font-size: 24px;
+    line-height: 48px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+.titlefont{
+    font-size: 16px;
+    font-weight: 500;
+}
+.nav-item.toolbaritem a {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    min-width: 100px;
+    font-weight: bold;
+}
